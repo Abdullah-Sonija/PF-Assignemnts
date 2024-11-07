@@ -2,4 +2,5 @@ Approach:
 Use Loop through the array to find the smallest and second smallest values in one pass, updating each as needed.
 What I learned:
 I learned how to track two minimum values efficiently and handle cases where all elements are equal.
-![alt text](https://myoctocat.com/assets/images/base-octocat.svg)
+![alt text](https://imgur.com/0aFndoT)
+
