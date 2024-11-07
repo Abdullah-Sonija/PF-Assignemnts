@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void print_horizontal_histogram(int values[], int count) 
+void horizontal_histogram(int values[], int count) 
 {
     for (int i = 0; i < count; i++) 
     {
@@ -13,7 +13,7 @@ void print_horizontal_histogram(int values[], int count)
     }
 }
 
-void print_vertical_histogram(int values[], int count) 
+void vertical_histogram(int values[], int count) 
 {
     int max_value = 0;
 
@@ -63,10 +63,10 @@ int main()
     }
 
     printf("\nHorizontal Histogram\n");
-    print_horizontal_histogram(values, count);
+    horizontal_histogram(values, count);
 
     printf("\nVertical Histogram\n");
-    print_vertical_histogram(values, count);
+    vertical_histogram(values, count);
 
     return 0;
 }
