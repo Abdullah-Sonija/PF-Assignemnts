@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_TRANSACTIONS 100
-#define MAX_LENGTH 50
+#define max_transactions 100
+#define max_length 50
 
 void sort_string(char *str) 
 {
@@ -20,49 +20,44 @@ void sort_string(char *str)
     }
 }
 
-typedef struct 
-{
-    char sorted[MAX_LENGTH];
-    char *transactions[MAX_TRANSACTIONS];
-    int count;
-} AnagramGroup;
-
-int find_or_create_group(AnagramGroup *groups, int *group_count, char *sorted) 
+int find_or_create_group(char sorted[][max_length], int counts[], int *group_count, char *sorted_str) 
 {
     for (int i = 0; i < *group_count; i++) 
     {
-        if (strcmp(groups[i].sorted, sorted) == 0) 
+        if (strcmp(sorted[i], sorted_str) == 0) 
         {
             return i;
         }
     }
-    strcpy(groups[*group_count].sorted, sorted);
-    groups[*group_count].count = 0;
+    strcpy(sorted[*group_count], sorted_str);
+    counts[*group_count] = 0;
     return (*group_count)++;
 }
 
 void group_transactions(char *transactions[], int n) 
 {
-    AnagramGroup groups[MAX_TRANSACTIONS];
+    char sorted[max_transactions][max_length];
+    int counts[max_transactions] = {0};
+    char *grouped_transactions[max_transactions][max_transactions];
     int group_count = 0;
 
     for (int i = 0; i < n; i++) 
     {
-        char sorted[MAX_LENGTH];
-        strcpy(sorted, transactions[i]);
-        sort_string(sorted);
+        char sorted_str[max_length];
+        strcpy(sorted_str, transactions[i]);
+        sort_string(sorted_str);
 
-        int group_index = find_or_create_group(groups, &group_count, sorted);
-        groups[group_index].transactions[groups[group_index].count++] = transactions[i];
+        int group_index = find_or_create_group(sorted, counts, &group_count, sorted_str);
+        grouped_transactions[group_index][counts[group_index]++] = transactions[i];
     }
 
     for (int i = 0; i < group_count; i++) 
     {
         printf("[");
-        for (int j = 0; j < groups[i].count; j++) 
+        for (int j = 0; j < counts[i]; j++) 
         {
-            printf("\"%s\"", groups[i].transactions[j]);
-            if (j < groups[i].count - 1) printf(", ");
+            printf("\"%s\"", grouped_transactions[i][j]);
+            if (j < counts[i] - 1) printf(", ");
         }
         printf("]\n");
     }
@@ -70,9 +65,21 @@ void group_transactions(char *transactions[], int n)
 
 int main() 
 {
-    char *transactions[] = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    int n = sizeof(transactions) / sizeof(transactions[0]);
+    int n;
+    printf("enter the number of transactions: ");
+    scanf("%d", &n);
 
-    group_transactions(transactions, n);
+    char transactions[max_transactions][max_length];
+    char *transaction_ptrs[max_transactions];
+
+    printf("enter each transaction:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("transaction %d: ", i + 1);
+        scanf("%s", transactions[i]);
+        transaction_ptrs[i] = transactions[i];
+    }
+
+    group_transactions(transaction_ptrs, n);
     return 0;
 }
