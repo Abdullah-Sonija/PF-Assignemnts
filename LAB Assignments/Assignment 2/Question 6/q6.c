@@ -1,54 +1,18 @@
-#include <stdio.h>
-
-int pick(int N) 
+#include<stdio.h>
+int main()
 {
-    int dp[N + 1];
-    
-    dp[0] = 0;
-    
-    for (int i = 1; i <= N; i++) 
+    int n;
+    printf("Enter the no of intial Matchstickes for the game: ");
+    scanf("%d", &n);
+
+    if(n%5==0)
     {
-        dp[i] = 0;
-        for (int pick = 1; pick <= 4 && i - pick >= 0; pick++) 
-        {
-            if (dp[i - pick] == 0) 
-            {
-                dp[i] = 1;
-                break;
-            }
-        }
-    }
-    
-    if (dp[N] == 0) 
-    {
+        printf("Player A can not win the game.\n");
         return -1;
     }
+    int r=n%5;
 
-    for (int pick = 1; pick <= 4; pick++) 
-    {
-        if (N - pick >= 0 && dp[N - pick] == 0) 
-        {
-            return pick;
-        }
-    }
-
-    return -1;
-}
-
-int main() 
-{
-    int N;
-    printf("Enter the number of matchsticks: ");
-    scanf("%d", &N);
-
-    int result = pick(N);
-    if (result == -1) 
-    {
-        printf("It is impossible for A to win the game.\n");
-    } else
-    {
-        printf("A should pick %d matchsticks on his first turn to guarantee a win.\n", result);
-    }
+    printf("Player A should have to pick %d matchstick in his first turn.\n", r);
 
     return 0;
 }
