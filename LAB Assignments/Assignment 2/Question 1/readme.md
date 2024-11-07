@@ -4,4 +4,4 @@ Use a loop through the array to find the smallest and second smallest values in 
 **What I learned:**
 I learned how to track two minimum values efficiently and handle cases where all elements are equal.
 
-![alt text](https://i.imgur.com/0aFndoT.png)
+![](https://i.imgur.com/0aFndoT.png)
