@@ -2,10 +2,12 @@
 #include <string.h>
 #include <math.h>
 
-int BinaryToDecimal(int number) {
+int Binary_Decimal(int number) 
+{
     int decimal = 0, base = 1, rem;
     
-    while (number > 0) {
+    while (number > 0) 
+    {
         rem = number % 10;
         decimal = decimal + rem * base;
         base = base * 2;
@@ -15,10 +17,12 @@ int BinaryToDecimal(int number) {
     return decimal;
 }
 
-int DecimalToBinary(int number) {
+int Decimal_Binary(int number) 
+{
     int binary = 0, rem, place = 1;
     
-    while (number > 0) {
+    while (number > 0) 
+    {
         rem = number % 2;
         binary += rem * place;
         place *= 10;
@@ -28,8 +32,10 @@ int DecimalToBinary(int number) {
     return binary;
 }
 
-void DecimalToHexadecimal(int number) {
-    if (number == 0) {
+void Decimal_Hexadecimal(int number) 
+{
+    if (number == 0)
+    {
         printf("0\n");
         return;
     }
@@ -37,7 +43,8 @@ void DecimalToHexadecimal(int number) {
     char hex[100];
     int i = 0;
     
-    while (number != 0) {
+    while (number != 0) 
+    {
         int temp = number % 16;
         if (temp < 10) {
             hex[i] = temp + 48;
@@ -49,22 +56,28 @@ void DecimalToHexadecimal(int number) {
     }
     
     printf("Hexadecimal: ");
-    for (int j = i - 1; j >= 0; j--) {
+    for (int j = i - 1; j >= 0; j--) 
+    {
         printf("%c", hex[j]);
     }
     printf("\n");
 }
 
-void HexadecimalToDecimal(char hexNumber[]) {
+void Hexadecimal_Decimal(char hexNumber[]) 
+{
     int length = strlen(hexNumber);
     int decimal = 0, base = 1;
     
-    for (int i = length - 1; i >= 0; i--) {
-        if (hexNumber[i] >= '0' && hexNumber[i] <= '9') {
+    for (int i = length - 1; i >= 0; i--) 
+    {
+        if (hexNumber[i] >= '0' && hexNumber[i] <= '9') 
+        {
             decimal += (hexNumber[i] - 48) * base;
-        } else if (hexNumber[i] >= 'a' && hexNumber[i] <= 'f') {
+        } else if (hexNumber[i] >= 'a' && hexNumber[i] <= 'f') 
+        {
             decimal += (hexNumber[i] - 87) * base;
-        } else if (hexNumber[i] >= 'A' && hexNumber[i] <= 'F') {
+        } else if (hexNumber[i] >= 'A' && hexNumber[i] <= 'F') 
+        {
             decimal += (hexNumber[i] - 55) * base;
         }
         base = base * 16;
@@ -73,29 +86,32 @@ void HexadecimalToDecimal(char hexNumber[]) {
     printf("Decimal: %d\n", decimal);
 }
 
-void BinaryToHexadecimal(int number) {
-    int decimal = BinaryToDecimal(number);
-    DecimalToHexadecimal(decimal);
+void Binary_Hexadecimal(int number) 
+{
+    int decimal = Binary_Decimal(number);
+    Decimal_Hexadecimal(decimal);
 }
 
-void HexadecimalToBinary(char hexNumber[]) {
-    int decimal;
-    HexadecimalToDecimal(hexNumber);
-    
-    decimal = 0;
-    for (int i = 0; hexNumber[i] != '\0'; i++) {
+void Hexadecimal_Binary(char hexNumber[]) 
+{
+    int decimal = 0;
+    Hexadecimal_Decimal(hexNumber);
+
+    for (int i = 0; hexNumber[i] != '\0'; i++) 
+    {
         decimal = decimal * 16 + (hexNumber[i] >= '0' && hexNumber[i] <= '9' ? hexNumber[i] - '0' : (hexNumber[i] >= 'a' && hexNumber[i] <= 'f' ? hexNumber[i] - 'a' + 10 : hexNumber[i] - 'A' + 10));
     }
 
     printf("Binary: ");
-    printf("%d\n", DecimalToBinary(decimal));
+    printf("%d\n", Decimal_Binary(decimal));
 }
 
 int main() {
     int choice, number;
     char hexNumber[100];
     
-    while (1) {
+    while (1) 
+    {
         printf("\nMenu:\n");
         printf("1. Binary to Decimal\n");
         printf("2. Decimal to Binary\n");
@@ -111,32 +127,32 @@ int main() {
             case 1:
                 printf("Enter binary number: ");
                 scanf("%d", &number);
-                printf("Decimal: %d\n", BinaryToDecimal(number));
+                printf("Decimal: %d\n", Binary_Decimal(number));
                 break;
             case 2:
                 printf("Enter decimal number: ");
                 scanf("%d", &number);
-                printf("Binary: %d\n", DecimalToBinary(number));
+                printf("Binary: %d\n", Decimal_Binary(number));
                 break;
             case 3:
                 printf("Enter decimal number: ");
                 scanf("%d", &number);
-                DecimalToHexadecimal(number);
+                Decimal_Hexadecimal(number);
                 break;
             case 4:
                 printf("Enter hexadecimal number: ");
                 scanf("%s", hexNumber);
-                HexadecimalToDecimal(hexNumber);
+                Hexadecimal_Decimal(hexNumber);
                 break;
             case 5:
                 printf("Enter binary number: ");
                 scanf("%d", &number);
-                BinaryToHexadecimal(number);
+                Binary_Hexadecimal(number);
                 break;
             case 6:
                 printf("Enter hexadecimal number: ");
                 scanf("%s", hexNumber);
-                HexadecimalToBinary(hexNumber);
+                Hexadecimal_Binary(hexNumber);
                 break;
             case 7:
                 printf("Exiting...\n");
