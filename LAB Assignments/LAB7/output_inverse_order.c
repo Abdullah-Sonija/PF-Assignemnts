@@ -1,25 +1,35 @@
 #include <stdio.h>
-int main()
-{
-    int n, i, a;
-    printf("Enter the size of array: ");
-    scanf("%d", &n);
-    int num[n];
+#include <stdlib.h>
 
-    for(i = 0; i < n; i = i + 1)
-    {
-        printf("Enter the value of the number: ");
-        scanf("%d", &a);
-        num[i] = a;
-    if(i< (n - 1))
-    {
-        printf("Give the next number \n");
+int main() {
+    char *num = NULL;
+    char *iterator;
+    int ch;
+    size_t size = 0;
+
+    printf("Enter the number: ");
+    
+    while ((ch = getchar()) != '\n' && ch != EOF) {
+        num = (char *)realloc(num, size + 1);
+        if (num == NULL) {
+            printf("Memory allocation failed\n");
+            return 1;
+        }
+        num[size++] = ch;
     }
+
+    // Null-terminate the string
+    num = (char *)realloc(num, size + 1);
+    num[size] = '\0';
+
+    iterator = num;
+
+    while (*iterator != '\0') {
+        printf("%c", *iterator);
+        iterator++;
     }
-    printf("Your output is ");
-    for(i = n - 1; i >= 0; i = i - 1)
-    {
-        printf("%d ", num[i]);
-    }
+
+    free(num);
+
     return 0;
 }
